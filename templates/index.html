@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
+  </head>
+  <body>
+    <main class="container">
+    <h1>{{ title }}</h1>
+    <p class="subtitle">Enter a username and submit.</p>
+
+    <form id="recommendForm" method="post" action="/">
+      <label for="username">Username</label>
+      <input id="username" name="username" type="text" value="{{ form_data.username or '' }}" placeholder="rachel" autocomplete="off" />
+      <button type="submit" id="submitBtn">Submit</button>
+      <div class="spinner" id="spinner"></div>
+    </form>
+
+    {% if error %}
+      <div class="error" role="alert">{{ error }}</div>
+    {% endif %}
+
+    <div class="card-sep"></div>
+
+    {% if top_products %}
+      <div class="caption">Results for <strong>{{ form_data.username }}</strong>:</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product in top_products %}
+          <tr>
+            <td>{{ product }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+  </main>
+  </body>
+</html>
